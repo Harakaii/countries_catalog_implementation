@@ -9,14 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 allCountries = data;
                 displayCountry();
-                setupPagination();
+                updatePaginationButtons();
             });
     }
 
-    const displayCountry = () => {
+    const displayCountry = (countries = allCountries) => {
         const start = (currentPage - 1) * rowsPerPage;
         const end = start + rowsPerPage;
-        const paginatedCountries = allCountries.slice(start, end);
+        const paginatedCountries = countries.slice(start, end);
 
         const countriesHTML = paginatedCountries.map(country => getCountry(country)).join('');
         document.getElementById('countries').innerHTML = countriesHTML;
@@ -65,29 +65,60 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#countryModal').modal('show');
     }
 
-    
-
     const updatePaginationButtons = () => {
-        document.getElementById('prev-page').classList.toggle('disabled',currentPage === 1 );
-        document.getElementById('next-page').classList.toggle('disabled',currentPage === Math.ceil(allCountries.length / rowsPerPage));
-    } 
-    document.getElementById('prev-page').addEventListener('click',(event)=>{
+        document.getElementById('prev-page').classList.toggle('disabled', currentPage === 1);
+        document.getElementById('next-page').classList.toggle('disabled', currentPage === Math.ceil(allCountries.length / rowsPerPage));
+    }
+
+    document.getElementById('prev-page').addEventListener('click', (event) => {
         event.preventDefault();
-        if(currentPage > 1){
-            currentPage -- ; 
+        if (currentPage > 1) {
+            currentPage--;
             displayCountry();
             updatePaginationButtons();
         }
-
     });
-    document.getElementById('next-page').addEventListener('click',(event)=>{
+
+    document.getElementById('next-page').addEventListener('click', (event) => {
         event.preventDefault();
-        if(currentPage <Math.ceil(allCountries.length / rowsPerPage)){
-            currentPage ++ ; 
+        if (currentPage < Math.ceil(allCountries.length / rowsPerPage)) {
+            currentPage++;
             displayCountry();
             updatePaginationButtons();
         }
+    });
 
+    const sortCountries = order => {
+        allCountries.sort((a, b) => {
+            if (order === 'asc') {
+                return a.name.common.localeCompare(b.name.common);
+            } else {
+                return b.name.common.localeCompare(a.name.common);
+            }
+        });
+        displayCountry();
+        updatePaginationButtons();
+    }
+
+    const searchCountries = query => {
+        const filteredCountries = allCountries.filter(country => country.name.common.toLowerCase().includes(query.toLowerCase()));
+        console.log("Filtered Countries:", filteredCountries); // Debugging line
+        currentPage = 1;
+        displayCountry(filteredCountries);
+        updatePaginationButtons();
+    }
+
+    document.getElementById('sort-asc').addEventListener('click', () => {
+        sortCountries('asc');
+    });
+
+    document.getElementById('sort-desc').addEventListener('click', () => {
+        sortCountries('desc');
+    });
+
+    document.getElementById('search').addEventListener('input', event => {
+        console.log("Input Event Triggered"); // Debugging line
+        searchCountries(event.target.value);
     });
 
     loadCountryAPI();
