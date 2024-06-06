@@ -1,0 +1,49 @@
+:root{
+    --teal:#60c9ee;
+    --teal_hover:#ff988e;
+  
+  }
+*{
+    font-family: 'Poppins', sans-serif;
+
+}
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #d1e2f7
+}
+h1{
+    /* width: 100%; */
+    /* removed horizontal scroll bar */
+    margin: 0 auto;
+    background: #627a96;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+
+.countries{
+    max-width: 1240px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.country-div{
+    background: #b7c9de;
+    border: 1px solid #627a96;;
+    padding: 15px;
+}
+img{
+    width: 100%;
+    height: 150px;
+}
+
+
+@media screen and (max-width: 576px){
+    .countries{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
