@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Country</title>
+    <title>Country Catalog</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
@@ -15,33 +15,34 @@
 <body>
     <h1>Countries Catalog Implementation</h1>
     <div class="container">
+
         <div class="row my-3">
+            <!-- sort -->
             <div class="col-md-4">
                 <button id="sort-asc" class="btn btn-light">Sort by Name (A-Z)</button>
                 <button id="sort-desc" class="btn btn-light">Sort by Name (Z-A)</button>
             </div>
+            <!-- search -->
             <div class="col-md-4">
                 <input type="text" id="search" class="form-control" placeholder="Search By Country Name ">
             </div>
+            <!-- Pagination -->
             <div class="col-md-4">
-
-                <!-- Pagination Controls -->
                 <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item" id="prev-page">
-                            <a class=" btn btn-light page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo; Previous</span>
+                        <li class="page-item pr-2" id="prev-page">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">Previous</span>
                             </a>
                         </li>
                         <li class="page-item" id="next-page">
                             <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">Next &raquo;</span>
+                                <span aria-hidden="true">Next</span>
                             </a>
                         </li>
                     </ul>
                 </nav>
             </div>
-
         </div>
 
     </div>
@@ -49,7 +50,7 @@
     <!-- load Countries -->
     <div class="countries" id="countries"></div>
 
-    <!-- Modal Structure -->
+    <!-- Modal -->
     <div class="modal fade" id="countryModal" tabindex="-1" aria-labelledby="countryModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

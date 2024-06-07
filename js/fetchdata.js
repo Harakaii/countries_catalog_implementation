@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         $('#countryModal').modal('show');
     }
-
+    // Pagination
     const updatePaginationButtons = () => {
         document.getElementById('prev-page').classList.toggle('disabled', currentPage === 1);
         document.getElementById('next-page').classList.toggle('disabled', currentPage === Math.ceil(allCountries.length / rowsPerPage));
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updatePaginationButtons();
         }
     });
-
+    // sort
     const sortCountries = order => {
         allCountries.sort((a, b) => {
             if (order === 'asc') {
@@ -99,15 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayCountry();
         updatePaginationButtons();
     }
-
-    const searchCountries = query => {
-        const filteredCountries = allCountries.filter(country => country.name.common.toLowerCase().includes(query.toLowerCase()));
-        console.log("Filtered Countries:", filteredCountries); // Debugging line
-        currentPage = 1;
-        displayCountry(filteredCountries);
-        updatePaginationButtons();
-    }
-
+    
     document.getElementById('sort-asc').addEventListener('click', () => {
         sortCountries('asc');
     });
@@ -115,7 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('sort-desc').addEventListener('click', () => {
         sortCountries('desc');
     });
-
+    // search
+    const searchCountries = query => {
+        const filteredCountries = allCountries.filter(country => country.name.common.toLowerCase().includes(query.toLowerCase()));
+        console.log("Filtered Countries:", filteredCountries); // Debugging line
+        currentPage = 1;
+        displayCountry(filteredCountries);
+        updatePaginationButtons();
+    }
     document.getElementById('search').addEventListener('input', event => {
         console.log("Input Event Triggered"); // Debugging line
         searchCountries(event.target.value);
